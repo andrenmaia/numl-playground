@@ -7,42 +7,50 @@ using System.Text;
 
 namespace Data
 {
-    public enum Outlook
+    public enum Perspectiva
     {
-        Sunny,
-        Overcast,
-        Rainy
+        Ensolarado,
+        Nublado,
+        Chuvoso
     }
 
-    public enum Temperature
+    public enum Temperatura
     {
-        Low,
-        High
+        Baixa,
+        Alta
     }
 
     public class Tennis
     {
         [Feature]
-        public Outlook Outlook { get; set; }
+        public Perspectiva Perpectiva { get; set; }
+
         [Feature]
-        public Temperature Temperature { get; set; }
+        public Temperatura Temperatura { get; set; }
+
         [Feature]
-        public bool Windy { get; set; }
+        public bool VentoForte { get; set; }
+
         [Label]
-        public bool Play { get; set; }
+        public bool OcorreUmJogo { get; set; }
 
         public static Tennis[] GetData()
         {
             return new Tennis[]  {
-                new Tennis { Play = true, Outlook=Outlook.Sunny, Temperature = Temperature.Low, Windy=true},
-                new Tennis { Play = false, Outlook=Outlook.Sunny, Temperature = Temperature.High, Windy=true},
-                new Tennis { Play = false, Outlook=Outlook.Sunny, Temperature = Temperature.High, Windy=false},
-                new Tennis { Play = true, Outlook=Outlook.Overcast, Temperature = Temperature.Low, Windy=true},
-                new Tennis { Play = true, Outlook=Outlook.Overcast, Temperature = Temperature.High, Windy= false},
-                new Tennis { Play = true, Outlook=Outlook.Overcast, Temperature = Temperature.Low, Windy=false},
-                new Tennis { Play = false, Outlook=Outlook.Rainy, Temperature = Temperature.Low, Windy=true},
-                new Tennis { Play = true, Outlook=Outlook.Rainy, Temperature = Temperature.Low, Windy=false}
+                new Tennis { OcorreUmJogo = true, Perpectiva=Perspectiva.Ensolarado, Temperatura = Temperatura.Baixa, VentoForte=true},
+                new Tennis { OcorreUmJogo = false, Perpectiva=Perspectiva.Ensolarado, Temperatura = Temperatura.Alta, VentoForte=true},
+                new Tennis { OcorreUmJogo = false, Perpectiva=Perspectiva.Ensolarado, Temperatura = Temperatura.Alta, VentoForte=false},
+                new Tennis { OcorreUmJogo = true, Perpectiva=Perspectiva.Nublado, Temperatura = Temperatura.Baixa, VentoForte=true},
+                new Tennis { OcorreUmJogo = true, Perpectiva=Perspectiva.Nublado, Temperatura = Temperatura.Alta, VentoForte= false},
+                new Tennis { OcorreUmJogo = true, Perpectiva=Perspectiva.Nublado, Temperatura = Temperatura.Baixa, VentoForte=false},
+                new Tennis { OcorreUmJogo = false, Perpectiva=Perspectiva.Chuvoso, Temperatura = Temperatura.Baixa, VentoForte=true},
+                new Tennis { OcorreUmJogo = true, Perpectiva=Perspectiva.Chuvoso, Temperatura = Temperatura.Baixa, VentoForte=false}
             };
+        }
+        
+        public override string ToString()
+        {
+            return string.Format("Perpectiva: {0}, Temperatura:{1}, VentoForte: {2}", Perpectiva, Temperatura, VentoForte);
         }
     }
 }

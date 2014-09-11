@@ -15,28 +15,32 @@ namespace GettingStarted
     {
         static void Main(string[] args)
         {
+
+            var descriptor = Descriptor.Create<Tennis>();
+            var generator = new DecisionTreeGenerator(descriptor);
+
+
+            // Treina com o dados informados e imprime a árvore de decisão
             Tennis[] data = Tennis.GetData();
-            var d = Descriptor.Create<Tennis>();
-            var g = new DecisionTreeGenerator(d);
-
-            g.SetHint(false);
-            var learned = Learner.Learn(data, 0.80, 1000, g);
-
+            generator.SetHint(false);
+            var learned = Learner.Learn(data, 0.80, 1000, generator);
             Console.WriteLine(learned);
 
-            IModel model = learned.Model;
-            double accuracy = learned.Accuracy;
 
+            // Cria uma previsão com o que aprendeu sobre os dados
+            // Nesse caso, é passada uma nova informação para que seja previsto
+            // se ocorrerá um jogo de acordo com as previsões informadas.
+            IModel model = learned.Model;
             Tennis t = new Tennis
             {
-                Outlook = Outlook.Sunny,
-                Temperature = Temperature.Low,
-                Windy = false
+                Perpectiva = Perspectiva.Ensolarado,
+                Temperatura = Temperatura.Baixa,
+                VentoForte = false
             };
 
             Tennis predictedVal = model.Predict(t);
-
-            Console.WriteLine("Play:{0}", predictedVal.Play);
+            Console.WriteLine("Previsão para:{0}", t);
+            Console.WriteLine("{0}{0} --> Play:{1}{0}{0}", Environment.NewLine, predictedVal.OcorreUmJogo);
         }
     }
 }
